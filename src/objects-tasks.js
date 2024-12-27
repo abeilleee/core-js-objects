@@ -130,7 +130,7 @@ function makeImmutable(obj) {
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
 function makeWord(lettersObject) {
-  const maxIdx = Math.max(...Object.values(lettersObject).flat());   //делаю одномерный массив(flat) и нахожу максимум
+  const maxIdx = Math.max(Object.values(lettersObject).flat()); // делаю одномерный массив(flat) и нахожу максимум
   const result = Array.from({ length: maxIdx }).fill('');
 
   Object.entries(lettersObject).forEach(([key, value]) => {
@@ -155,8 +155,24 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  let sum = 0;
+  const priceOfTicket = 25;
+  let result;
+  let change;
+  if (queue.length === 0) {
+    result = 1;
+  }
+  for (let i = 0; i < queue.length - 1; i += 1) {
+    sum += queue[i];
+    change = queue[i + 1] - priceOfTicket;
+    if (change === 0) {
+      result = true;
+    } else {
+      result = change < sum ? 1 : 0;
+    }
+  }
+  return result === 1;
 }
 
 /**

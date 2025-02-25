@@ -54,7 +54,7 @@ function mergeObjects(objects) {
  * @example
  *    removeProperties({a: 1, b: 2, c: 3}, ['b', 'c']) => {a: 1}
  *    removeProperties({a: 1, b: 2, c: 3}, ['d', 'e']) => {a: 1, b: 2, c: 3}
- *    removeProperties({name: 'John', age: 30, city: 'New York'}, 'age') => {name: 'John', city: 'New York'}
+ *    removeProperties({name: 'John', age: 30, city: 'New York'}, ['age']) => {name: 'John', city: 'New York'}
  *
  */
 function removeProperties(obj, keys) {
@@ -153,23 +153,14 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
 function sellTickets(queue) {
-  let sum = 0;
-  const priceOfTicket = 25;
-  let result;
-  let change;
-  if (queue.length === 0) {
-    result = 1;
-  }
-  for (let i = 0; i < queue.length - 1; i += 1) {
-    sum += queue[i];
-    change = queue[i + 1] - priceOfTicket;
-    if (change === 0) {
-      result = true;
-    } else {
-      result = change < sum ? 1 : 0;
+  let result = true;
+  queue.reduce((accum, elem) => {
+    if (elem - 25 > accum) {
+      result = false;
     }
-  }
-  return result === 1;
+    return accum + elem;
+  }, 0);
+  return result;
 }
 
 /**
@@ -204,7 +195,7 @@ function Rectangle(width, height) {
  *
  * @example
  *    [1,2,3]   =>  '[1,2,3]'
- *    { width: 10, height : 20 } => '{"height":10,"width":20}'
+ *    { height: 10, width : 20 } => '{"height":10,"width":20}'
  */
 function getJSON(obj) {
   return JSON.stringify(obj);

@@ -185,6 +185,14 @@ describe('objects-tasks', () => {
           queue: [25, 100],
           expected: false,
         },
+        {
+          queue: [25, 25, 25, 100],
+          expected: true,
+        },
+        {
+          queue: [25, 25, 25, 25, 50, 100, 50],
+          expected: true,
+        },
       ].forEach((data) => {
         assert.equal(tasks.sellTickets(data.queue), data.expected);
       });
@@ -578,7 +586,7 @@ describe('objects-tasks', () => {
           /Element, id and pseudo-element should not occur more then one time inside the selector/,
 
           '\nPlease throw an exception "Element, id and pseudo-element should not occur more then one time inside the selector" ' +
-            'if element, id or pseudo-element occurs twice or more times'
+          'if element, id or pseudo-element occurs twice or more times'
         );
       });
 
@@ -606,7 +614,7 @@ describe('objects-tasks', () => {
           /Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element/,
 
           '\nPlease throw an exception "Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element" ' +
-            'if selector parts arranged in an invalid order.'
+          'if selector parts arranged in an invalid order.'
         );
       });
     }

@@ -127,15 +127,15 @@ function makeImmutable(obj) {
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
 function makeWord(lettersObject) {
-  const maxIdx = Math.max(Object.values(lettersObject).flat()); // делаю одномерный массив(flat) и нахожу максимум
-  const result = Array.from({ length: maxIdx }).fill('');
-
-  Object.entries(lettersObject).forEach(([key, value]) => {
-    value.forEach((idx) => {
-      result[idx] = key;
+  const res = [];
+  const keys = Object.keys(lettersObject);
+  keys.forEach((key) => {
+    lettersObject[key].forEach((elem) => {
+      res[elem] = key;
     });
   });
-  return result.join('');
+
+  return res.join('');
 }
 
 /**
